@@ -1,0 +1,4 @@
+/xml2bibx/bin/
+/xml2bibx/obj/
+*.suo
+*.sln
