@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace xml2bibx
 {
@@ -71,25 +73,32 @@ namespace xml2bibx
                 return;
             }
 
+            if (!isValid(args[0]))
+            {
+                showError("XML validation failed");
+
+                return;
+            }
+
             try
             {
-                byte[] xml = File.ReadAllBytes(args[0]);
-                double srcSize = xml.Length;
+                byte[] xmlByteData = File.ReadAllBytes(args[0]);
+                double srcSize = xmlByteData.Length;
                 MemoryStream ms = new MemoryStream();
                 GZipStream sw = new GZipStream(ms, CompressionMode.Compress);
 
-                sw.Write(xml, 0, xml.Length);
+                sw.Write(xmlByteData, 0, xmlByteData.Length);
                 sw.Close();
-                xml = ms.ToArray();
+                xmlByteData = ms.ToArray();
 
-                StringBuilder sB = new StringBuilder(xml.Length);
-                foreach (byte item in xml)
+                StringBuilder sB = new StringBuilder(xmlByteData.Length);
+                foreach (byte item in xmlByteData)
                 {
                     sB.Append((char)item);
                 }
 
                 ms.Close();
-                File.WriteAllBytes(args[1], xml);
+                File.WriteAllBytes(args[1], xmlByteData);
                 sw.Dispose();
                 ms.Dispose();
 
@@ -98,7 +107,7 @@ namespace xml2bibx
                     args[0],
                     formatSize(srcSize),
                     args[1],
-                    formatSize(xml.Length)
+                    formatSize(xmlByteData.Length)
                     ));
             }
             catch (Exception e)
@@ -106,6 +115,92 @@ namespace xml2bibx
                 showError(string.Format("Exception: {0}", e.Message));
                 Console.ForegroundColor = defaultForegroundColor;
             }
+        }
+
+        /// <summary>
+        /// Perform XML validation using XSD schema.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private static bool isValid(string fileName)
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+
+            settings.ValidationType = ValidationType.Schema;
+            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
+            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
+            settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("xml2bibx.Resources.bibx.xsd");
+            XmlReader xsdReader = XmlReader.Create(stream);
+
+            try
+            {
+                settings.Schemas.Add(null, xsdReader);
+            }
+            catch (XmlSchemaException e)
+            {
+                Console.WriteLine(
+                    "Schema validation error ({0}:{1}): {2}",
+                    e.LineNumber,
+                    e.LinePosition,
+                    e.Message
+                );
+                Console.WriteLine();
+
+                return false;
+            }
+
+            bool result = true;
+
+            settings.ValidationEventHandler += new ValidationEventHandler(delegate(Object sender, ValidationEventArgs args)
+            {
+                if (args.Severity == XmlSeverityType.Warning)
+                {
+                    Console.WriteLine(
+                        "Warning ({0}:{1}): Matching schema not found, no validation occurred. {2}",
+                        args.Exception.LineNumber,
+                        args.Exception.LinePosition,
+                        args.Message
+                    );
+                }
+                else
+                {
+                    Console.WriteLine(
+                        "XML validation error ({0}:{1}): {2}",
+                        args.Exception.LineNumber,
+                        args.Exception.LinePosition,
+                        args.Message
+                    );
+                }
+
+                result = false;
+            });
+
+            XmlReader reader = XmlReader.Create(fileName, settings);
+
+            try
+            {
+                while (reader.Read()) ;
+            }
+            catch (XmlException e)
+            {
+                Console.WriteLine(
+                    "XML validation error ({0}:{1}): {2}",
+                    e.LineNumber,
+                    e.LinePosition,
+                    e.Message
+                );
+
+                result = false;
+            }
+
+            if (!result)
+            {
+                Console.WriteLine();
+            }
+
+            return result;
         }
     }
 }
