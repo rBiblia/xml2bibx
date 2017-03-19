@@ -48,7 +48,7 @@ namespace xml2bibx
                 Assembly.GetExecutingAssembly().GetName().Version.ToString()
             ));
             Console.WriteLine("http://rbiblia.toborek.info");
-            Console.WriteLine("(c) 2013-2016 Rafał Toborek");
+            Console.WriteLine("(c) 2013-2017 Rafał Toborek");
             Console.ForegroundColor = defaultForegroundColor;
 
             Console.WriteLine();
