@@ -12,6 +12,8 @@ namespace xml2bibx
 {
     class Program
     {
+        private static ConsoleColor defaultForegroundColor;
+
         /// <summary>
         /// Displays error message.
         /// </summary>
@@ -20,6 +22,7 @@ namespace xml2bibx
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(string.Format("[ERROR]: {0}", errorMsg));
+            Console.ForegroundColor = defaultForegroundColor;
             Console.ReadLine();
         }
 
@@ -42,7 +45,7 @@ namespace xml2bibx
 
         static void Main(string[] args)
         {
-            ConsoleColor defaultForegroundColor = Console.ForegroundColor;
+            defaultForegroundColor = Console.ForegroundColor;
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine(String.Format(
