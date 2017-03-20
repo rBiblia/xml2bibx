@@ -80,9 +80,27 @@ namespace xml2bibx
                 return;
             }
 
+            string xml;
+
             try
             {
-                byte[] xmlByteData = File.ReadAllBytes(args[0]);
+                using (StreamReader sr = new StreamReader(args[0], System.Text.Encoding.UTF8))
+                {
+                    xml = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                showError(String.Format("Could not read the input XML file: {0}", e.Message));
+
+                return;
+            }
+
+            xml = truncate(xml);
+
+            try
+            {
+                byte[] xmlByteData = Encoding.UTF8.GetBytes(xml);
                 double srcSize = xmlByteData.Length;
                 MemoryStream ms = new MemoryStream();
                 GZipStream sw = new GZipStream(ms, CompressionMode.Compress);
@@ -201,6 +219,25 @@ namespace xml2bibx
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Removes all whitespaces.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private static string truncate(string content)
+        {
+            content = content.Replace("\t", "").Replace("\r", "").Replace("\n", "");
+
+            while (content.IndexOf("  ") > 0)
+            {
+                content = content.Replace("  ", " ");
+            }
+
+            content = content.Replace("> <", "><");
+
+            return content;
         }
     }
 }
