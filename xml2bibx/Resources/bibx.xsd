@@ -5,14 +5,14 @@
       <xs:sequence>
         <xs:element name="about">
           <xs:complexType>
-            <xs:sequence>
+            <xs:all>
               <xs:element name="language" type="xs:string" />
               <xs:element name="authorised" type="xs:int" />
               <xs:element name="name" type="xs:string" />
               <xs:element name="description" type="xs:string" />
               <xs:element name="date" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1" />
-            </xs:sequence>
+            </xs:all>
           </xs:complexType>
         </xs:element>
         <xs:element name="translation">
