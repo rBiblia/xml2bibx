@@ -14,35 +14,6 @@ namespace xml2bibx
     {
         private static ConsoleColor defaultForegroundColor;
 
-        /// <summary>
-        /// Displays error message.
-        /// </summary>
-        /// <param name="errorMsg"></param>
-        private static void showError(string errorMsg)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(string.Format("[ERROR]: {0}", errorMsg));
-            Console.ForegroundColor = defaultForegroundColor;
-            Console.ReadLine();
-        }
-
-        /// <summary>
-        /// Formats input size.
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        private static string formatSize(double size)
-        {
-            string[] units = { "B", "KB", "MB", "GB" };
-            int order = 0;
-            while (size >= 1024 & order + 1 < units.Length)
-            {
-                order++;
-                size = size / 1024;
-            }
-            return String.Format("{0:0.##} {1}", size, units[order]);
-        }
-
         static void Main(string[] args)
         {
             defaultForegroundColor = Console.ForegroundColor;
@@ -140,6 +111,35 @@ namespace xml2bibx
                 showError(string.Format("Exception: {0}", e.Message));
                 Console.ForegroundColor = defaultForegroundColor;
             }
+        }
+
+        /// <summary>
+        /// Displays error message.
+        /// </summary>
+        /// <param name="errorMsg"></param>
+        private static void showError(string errorMsg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(string.Format("[ERROR]: {0}", errorMsg));
+            Console.ForegroundColor = defaultForegroundColor;
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Formats input size.
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        private static string formatSize(double size)
+        {
+            string[] units = { "B", "KB", "MB", "GB" };
+            int order = 0;
+            while (size >= 1024 & order + 1 < units.Length)
+            {
+                order++;
+                size = size / 1024;
+            }
+            return String.Format("{0:0.##} {1}", size, units[order]);
         }
 
         /// <summary>
