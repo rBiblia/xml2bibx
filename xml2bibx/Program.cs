@@ -76,6 +76,9 @@ namespace xml2bibx
                 return;
             }
 
+            Console.WriteLine("Converting: {0}", args[0]);
+            Console.WriteLine();
+
             if (!isValid(args[0]))
             {
                 showError("XML validation failed");
