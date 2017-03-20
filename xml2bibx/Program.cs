@@ -128,9 +128,9 @@ namespace xml2bibx
 
                 Console.WriteLine(string.Format(
                     "[OK]: {0} ({1}) => {2} ({3})",
-                    args[0],
+                    Path.GetFileName(args[0]),
                     formatSize(srcSize),
-                    args[1],
+                    Path.GetFileName(args[1]),
                     formatSize(xmlByteData.Length)
                     ));
                 Console.WriteLine();
