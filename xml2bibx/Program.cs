@@ -127,6 +127,7 @@ namespace xml2bibx
                     args[1],
                     formatSize(xmlByteData.Length)
                     ));
+                Console.WriteLine();
             }
             catch (Exception e)
             {
