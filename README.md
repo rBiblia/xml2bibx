@@ -24,6 +24,9 @@ xml2bibx.exe input.xml output.bibx
 
 ## Changelog:
 
+### 1.2.0.0 (2017-03-21):
+* added `shortname` tag to XSD schema
+
 ### 1.1.0.0 (2017-03-20):
 * added XML pre-validation process based on the included XSD schema
 * XML is now truncated before compression (all white spaces will be removed)
