@@ -39,7 +39,96 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:string" />
+                  <xs:attribute name="id">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="gen" />
+                        <xs:enumeration value="exo" />
+                        <xs:enumeration value="lev" />
+                        <xs:enumeration value="num" />
+                        <xs:enumeration value="deu" />
+                        <xs:enumeration value="jos" />
+                        <xs:enumeration value="jdg" />
+                        <xs:enumeration value="rut" />
+                        <xs:enumeration value="1sa" />
+                        <xs:enumeration value="2sa" />
+                        <xs:enumeration value="1ki" />
+                        <xs:enumeration value="2ki" />
+                        <xs:enumeration value="1ch" />
+                        <xs:enumeration value="2ch" />
+                        <xs:enumeration value="ezr" />
+                        <xs:enumeration value="neh" />
+                        <xs:enumeration value="tob" />
+                        <xs:enumeration value="jdt" />
+                        <xs:enumeration value="est" />
+                        <xs:enumeration value="1ma" />
+                        <xs:enumeration value="2ma" />
+                        <xs:enumeration value="3ma" />
+                        <xs:enumeration value="4ma" />
+                        <xs:enumeration value="job" />
+                        <xs:enumeration value="psa" />
+                        <xs:enumeration value="pro" />
+                        <xs:enumeration value="ecc" />
+                        <xs:enumeration value="sol" />
+                        <xs:enumeration value="wis" />
+                        <xs:enumeration value="sip" />
+                        <xs:enumeration value="sir" />
+                        <xs:enumeration value="pss" />
+                        <xs:enumeration value="isa" />
+                        <xs:enumeration value="jer" />
+                        <xs:enumeration value="lam" />
+                        <xs:enumeration value="bar" />
+                        <xs:enumeration value="eze" />
+                        <xs:enumeration value="dan" />
+                        <xs:enumeration value="hos" />
+                        <xs:enumeration value="joe" />
+                        <xs:enumeration value="amo" />
+                        <xs:enumeration value="oba" />
+                        <xs:enumeration value="jon" />
+                        <xs:enumeration value="mic" />
+                        <xs:enumeration value="nah" />
+                        <xs:enumeration value="hab" />
+                        <xs:enumeration value="zep" />
+                        <xs:enumeration value="hag" />
+                        <xs:enumeration value="zec" />
+                        <xs:enumeration value="mal" />
+                        <xs:enumeration value="mat" />
+                        <xs:enumeration value="mar" />
+                        <xs:enumeration value="luk" />
+                        <xs:enumeration value="joh" />
+                        <xs:enumeration value="act" />
+                        <xs:enumeration value="rom" />
+                        <xs:enumeration value="1co" />
+                        <xs:enumeration value="2co" />
+                        <xs:enumeration value="gal" />
+                        <xs:enumeration value="eph" />
+                        <xs:enumeration value="phi" />
+                        <xs:enumeration value="col" />
+                        <xs:enumeration value="1th" />
+                        <xs:enumeration value="2th" />
+                        <xs:enumeration value="1ti" />
+                        <xs:enumeration value="2ti" />
+                        <xs:enumeration value="tit" />
+                        <xs:enumeration value="phm" />
+                        <xs:enumeration value="heb" />
+                        <xs:enumeration value="jam" />
+                        <xs:enumeration value="1pe" />
+                        <xs:enumeration value="2pe" />
+                        <xs:enumeration value="1jo" />
+                        <xs:enumeration value="2jo" />
+                        <xs:enumeration value="3jo" />
+                        <xs:enumeration value="jud" />
+                        <xs:enumeration value="rev" />
+                        <xs:enumeration value="epj" />
+                        <xs:enumeration value="sus" />
+                        <xs:enumeration value="bel" />
+                        <xs:enumeration value="pra" />
+                        <xs:enumeration value="prm" />
+                        <xs:enumeration value="lao" />
+                        <xs:enumeration value="4es" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
