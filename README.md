@@ -24,6 +24,9 @@ xml2bibx.exe input.xml output.bibx
 
 ## Changelog:
 
+### 1.3.0.0 (2017-03-23):
+* added book id validation in XSD schema
+
 ### 1.2.0.0 (2017-03-21):
 * added `shortname` tag to XSD schema
 
