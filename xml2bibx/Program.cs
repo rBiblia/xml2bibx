@@ -23,8 +23,8 @@ namespace xml2bibx
                 "rBiblia xml2bibx converter, ver. {0}",
                 Assembly.GetExecutingAssembly().GetName().Version.ToString()
             ));
-            Console.WriteLine("http://rbiblia.toborek.info");
-            Console.WriteLine("(c) 2013-2017 Rafał Toborek");
+            Console.WriteLine("https://rbiblia.toborek.info");
+            Console.WriteLine("(c) 2013-2019 Rafał Toborek");
             Console.ForegroundColor = defaultForegroundColor;
 
             Console.WriteLine();
