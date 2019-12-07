@@ -1,14 +1,14 @@
 # rBiblia xml2bibx converter
 
-With this simple console tool you are able to convert translations stored in XML format into fully functional *.bibx files used by [rBiblia](http://rbiblia.toborek.info) application. XML validation process is performed before the conversion.
+With this simple console tool you can convert translations stored in XML format into fully functional *.bibx files used by [rBiblia](https://rbiblia.toborek.info) application. XML validation process is performed before the conversion.
 
 ## Download
 
-Compiled version can be downloaded from the [official location](http://api.toborek.info/pobierz/xml2bibx.exe).
+Compiled version can be downloaded from the [official location](https://api.toborek.info/pobierz/xml2bibx.exe).
 
 ## Requirements
 
-* any Windows version with .NET 3.5/4 framework
+* any Windows version with .NET 3.5/4 framework installed
 
 ## Compilation
 
@@ -23,6 +23,10 @@ xml2bibx.exe input.xml output.bibx
 ```
 
 ## Changelog:
+
+### 1.4.0.0 (2019-12-07):
+* added `notice` tag to XSD schema
+* small improvements
 
 ### 1.3.0.0 (2017-03-23):
 * added book id validation in XSD schema
