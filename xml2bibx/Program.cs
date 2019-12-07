@@ -19,7 +19,7 @@ namespace xml2bibx
             defaultForegroundColor = Console.ForegroundColor;
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine(String.Format(
+            Console.WriteLine(string.Format(
                 "rBiblia xml2bibx converter, ver. {0}",
                 Assembly.GetExecutingAssembly().GetName().Version.ToString()
             ));
@@ -61,14 +61,14 @@ namespace xml2bibx
 
             try
             {
-                using (StreamReader sr = new StreamReader(args[0], System.Text.Encoding.UTF8))
+                using (StreamReader sr = new StreamReader(args[0], Encoding.UTF8))
                 {
                     xml = sr.ReadToEnd();
                 }
             }
             catch (Exception e)
             {
-                showError(String.Format("Could not read the input XML file: {0}", e.Message));
+                showError(string.Format("Could not read the input XML file: {0}", e.Message));
 
                 return;
             }
@@ -139,7 +139,7 @@ namespace xml2bibx
                 order++;
                 size = size / 1024;
             }
-            return String.Format("{0:0.##} {1}", size, units[order]);
+            return string.Format("{0:0.##} {1}", size, units[order]);
         }
 
         /// <summary>
@@ -149,12 +149,13 @@ namespace xml2bibx
         /// <returns></returns>
         private static bool isValid(string fileName)
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-
-            settings.ValidationType = ValidationType.Schema;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
-            settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+            XmlReaderSettings settings = new XmlReaderSettings()
+            {
+                ValidationType = ValidationType.Schema,
+                ValidationFlags = XmlSchemaValidationFlags.ProcessInlineSchema 
+                    | XmlSchemaValidationFlags.ProcessSchemaLocation
+                    | XmlSchemaValidationFlags.ReportValidationWarnings
+            };
 
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("xml2bibx.Resources.bibx.xsd");
             XmlReader xsdReader = XmlReader.Create(stream);
@@ -178,7 +179,7 @@ namespace xml2bibx
 
             bool result = true;
 
-            settings.ValidationEventHandler += new ValidationEventHandler(delegate(Object sender, ValidationEventArgs args)
+            settings.ValidationEventHandler += new ValidationEventHandler(delegate(object sender, ValidationEventArgs args)
             {
                 if (args.Severity == XmlSeverityType.Warning)
                 {
