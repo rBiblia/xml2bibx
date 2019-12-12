@@ -22,6 +22,14 @@ msbuild.exe "xml2bibx/xml2bibx.csproj" /p:OutputPath=output;Config=Release
 xml2bibx.exe input.xml output.bibx
 ```
 
+## Contact details and donation
+
+If you have a question, please do not hesitate to contact owner of this repo using dedicated [contact form](https://toborek.info/kontakt/) (please, keep in mind that I can understand only Polish and English language).
+
+Please [support my work](https://rbiblia.toborek.info/donation/).
+
+You can follow rBiblia on [Facebook](https://www.facebook.com/rBiblia) and [Telegram](https://t.me/rBiblia).
+
 ## Changelog:
 
 ### 1.4.0.0 (2019-12-07):
