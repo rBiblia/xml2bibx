@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
+using System.Collections.Generic;
 
 namespace xml2bibx
 {
@@ -24,7 +25,7 @@ namespace xml2bibx
                 Assembly.GetExecutingAssembly().GetName().Version.ToString()
             ));
             Console.WriteLine("https://rbiblia.toborek.info");
-            Console.WriteLine("(c) 2013-2019 Rafał Toborek");
+            Console.WriteLine("(c) 2013-2021 Rafał Toborek");
             Console.ForegroundColor = defaultForegroundColor;
 
             Console.WriteLine();
@@ -50,7 +51,7 @@ namespace xml2bibx
             Console.WriteLine("Converting: {0}", args[0]);
             Console.WriteLine();
 
-            if (!isValid(args[0]))
+            if (!isSchemaValid(args[0]))
             {
                 showError("XML validation failed");
 
@@ -69,6 +70,14 @@ namespace xml2bibx
             catch (Exception e)
             {
                 showError(string.Format("Could not read the input XML file: {0}", e.Message));
+
+                return;
+            }
+
+            if (!validateIndexes(xml))
+            {
+                Console.WriteLine();
+                showError("Incorrect XML attribute index detected");
 
                 return;
             }
@@ -137,7 +146,7 @@ namespace xml2bibx
             while (size >= 1024 & order + 1 < units.Length)
             {
                 order++;
-                size = size / 1024;
+                size /= 1024;
             }
             return string.Format("{0:0.##} {1}", size, units[order]);
         }
@@ -147,7 +156,7 @@ namespace xml2bibx
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private static bool isValid(string fileName)
+        private static bool isSchemaValid(string fileName)
         {
             XmlReaderSettings settings = new XmlReaderSettings()
             {
@@ -227,6 +236,80 @@ namespace xml2bibx
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Validates if attribue ID is in correct order.
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        private static bool validateIndexes(string xml)
+        {
+            bool results = true;
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+
+            string xPath = "bibx/translation/book";
+            var nodes = xmlDoc.SelectNodes(xPath);
+
+            List<string> booksFound = new List<string>();
+            foreach (XmlNode bookNode in nodes)
+            {
+                string bookId = bookNode.Attributes.GetNamedItem("id").InnerText;
+                if (booksFound.Contains(bookId))
+                {
+                    Console.WriteLine(
+                        "Duplicated book identifier found: {0}",
+                        bookId
+                    );
+
+                    results = false;
+                }
+                booksFound.Add(bookId);
+
+                byte expectedChapterIndex = 0;
+                foreach (XmlNode chapterNode in bookNode.ChildNodes)
+                {
+                    byte currentChapterIndex = Convert.ToByte(chapterNode.Attributes.GetNamedItem("id").InnerText);
+                    expectedChapterIndex++;
+
+                    if (currentChapterIndex < expectedChapterIndex)
+                    {
+                        Console.WriteLine(
+                            "Incorrect chapter index order, expected: {0}, current: {1} in [{2}:{3}]",
+                            expectedChapterIndex,
+                            currentChapterIndex,
+                            bookNode.Attributes.GetNamedItem("id").InnerText,
+                            chapterNode.Attributes.GetNamedItem("id").InnerText
+                        );
+
+                        results = false;
+                    }
+
+                    byte expectedVerseIndex = 0;
+                    foreach (XmlNode verseNode in chapterNode.ChildNodes)
+                    {
+                        byte currentVerseIndex = Convert.ToByte(verseNode.Attributes.GetNamedItem("id").InnerText);
+                        expectedVerseIndex++;
+
+                        if (currentVerseIndex != expectedVerseIndex)
+                        {
+                            Console.WriteLine(
+                                "Verse index mismatch, expected: {0}, current: {1} in [{2}:{3}]",
+                                expectedVerseIndex,
+                                currentVerseIndex,
+                                bookNode.Attributes.GetNamedItem("id").InnerText,
+                                chapterNode.Attributes.GetNamedItem("id").InnerText
+                            );
+
+                            results = false;
+                        }
+                    }
+                };
+            }
+
+            return results;
         }
 
         /// <summary>

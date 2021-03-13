@@ -32,6 +32,9 @@ You can follow rBiblia on [Facebook](https://www.facebook.com/rBiblia) and [Tele
 
 ## Changelog:
 
+### 1.5.0.0 (2021-03-13):
+* added XML attribute identifier validation
+
 ### 1.4.0.0 (2019-12-07):
 * added `notice` tag to XSD schema
 * small improvements
