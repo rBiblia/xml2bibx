@@ -126,7 +126,9 @@
                         <xs:enumeration value="pra" />
                         <xs:enumeration value="prm" />
                         <xs:enumeration value="lao" />
+                        <xs:enumeration value="3es" />
                         <xs:enumeration value="4es" />
+                        <xs:enumeration value="sn3" />
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
