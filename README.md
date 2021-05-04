@@ -32,6 +32,9 @@ You can follow rBiblia on [Facebook](https://www.facebook.com/rBiblia) and [Tele
 
 ## Changelog:
 
+### 1.6.0.0 (2021-05-04):
+* added support for new apocrypha books: 3es, sn3
+
 ### 1.5.0.0 (2021-03-13):
 * added XML attribute identifier validation
 
