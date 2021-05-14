@@ -274,7 +274,7 @@ namespace xml2bibx
                     byte currentChapterIndex = Convert.ToByte(chapterNode.Attributes.GetNamedItem("id").InnerText);
                     expectedChapterIndex++;
 
-                    if (currentChapterIndex < expectedChapterIndex)
+                    if (currentChapterIndex != expectedChapterIndex)
                     {
                         Console.WriteLine(
                             "Incorrect chapter index order, expected: {0}, current: {1} in [{2}:{3}]",
