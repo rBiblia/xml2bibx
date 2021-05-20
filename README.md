@@ -32,6 +32,9 @@ You can follow rBiblia on [Facebook](https://www.facebook.com/rBiblia) and [Tele
 
 ## Changelog:
 
+### 1.8.0.0 (2021-05-20):
+* verse data type changed to `Int32` from `byte`
+
 ### 1.7.0.0 (2021-05-14):
 * fixed chapter index validation
 

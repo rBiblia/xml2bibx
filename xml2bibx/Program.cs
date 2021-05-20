@@ -268,10 +268,10 @@ namespace xml2bibx
                 }
                 booksFound.Add(bookId);
 
-                byte expectedChapterIndex = 0;
+                int expectedChapterIndex = 0;
                 foreach (XmlNode chapterNode in bookNode.ChildNodes)
                 {
-                    byte currentChapterIndex = Convert.ToByte(chapterNode.Attributes.GetNamedItem("id").InnerText);
+                    int currentChapterIndex = Convert.ToInt32(chapterNode.Attributes.GetNamedItem("id").InnerText);
                     expectedChapterIndex++;
 
                     if (currentChapterIndex != expectedChapterIndex)
@@ -287,10 +287,10 @@ namespace xml2bibx
                         results = false;
                     }
 
-                    byte expectedVerseIndex = 0;
+                    int expectedVerseIndex = 0;
                     foreach (XmlNode verseNode in chapterNode.ChildNodes)
                     {
-                        byte currentVerseIndex = Convert.ToByte(verseNode.Attributes.GetNamedItem("id").InnerText);
+                        int currentVerseIndex = Convert.ToInt32(verseNode.Attributes.GetNamedItem("id").InnerText);
                         expectedVerseIndex++;
 
                         if (currentVerseIndex != expectedVerseIndex)
