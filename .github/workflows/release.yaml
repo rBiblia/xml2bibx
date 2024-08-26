@@ -1,0 +1,30 @@
+name: Build on tag creation
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build xml2bibx.exe and update release
+    runs-on: windows-2019
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v2
+  
+      - name: Compile project
+        run: |
+          msbuild.exe "xml2bibx/xml2bibx.csproj" /p:OutputPath=output /p:Config=Release
+
+      - name: Update release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: xml2bibx/output/xml2bibx.exe
+          asset_name: xml2bibx.exe
+          tag: ${{ github.ref }}
+          overwrite: true
